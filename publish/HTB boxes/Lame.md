@@ -64,3 +64,14 @@ Host script results:
 |   challenge_response: supported
 |_  message_signing: disabled (dangerous, but default)
 ```
+
+
+set up netcat  
+nc -lvnp 4444
+
+
+We can use the CVE to get a shell that is root where we can directly read user and root flag
+
+50a4e73065068b9399f1c53ea20c4e8c
+
+cc895d679ced279aafcc856f46587681
