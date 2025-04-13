@@ -1,0 +1,1 @@
+Screen version 4.05.00 suffers from a privilege escalation vulnerability that can be easily leveraged to escalate privileges.

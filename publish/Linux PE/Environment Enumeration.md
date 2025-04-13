@@ -1,0 +1,1 @@
+First, we'll answer the fundamental question: What operating system are we dealing with? 
