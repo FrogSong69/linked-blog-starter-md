@@ -52,3 +52,7 @@ Service Info: Hosts:  beep.localdomain, 127.0.0.1, example.com
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 193.78 seconds
 ```
+
+
+
+1. `feroxbuster -u http://nocturnal.htb/   -w /usr/share/seclists/Discovery/Web-Content/common.txt   -x php,doc,docx,txt,conf,bak   -H "Cookie: PHPSESSID=3a9fudjom19l0ua5i7vdmsjnc9"   -C 200`
