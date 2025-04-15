@@ -13,4 +13,4 @@ my next thought was to try the other fields to see if any of them are not check 
 ffuf -w /path/to/wordlist -u https://target/FUZZ
 ```
 
-ffuf -w subdomains-top1million-20000.txt -u http://10.10.11.8:5000/FUZZ
+ffuf -w subdomains-top1million-20000.txt -u http://10.10.11.8:5000/FUZZT
