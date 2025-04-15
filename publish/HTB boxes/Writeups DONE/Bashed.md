@@ -150,3 +150,5 @@ cat /home/arrexel/user.txt
 ### Conclusion
 
 In the _Bashed_ Hack The Box machine, initial access was obtained through an exposed `phpbash.php` web shell running as the low-privileged `www-data` user. During enumeration, it was discovered that `www-data` had misconfigured `sudo` permissions, allowing it to run any command as the `scriptmanager` user without requiring a password. Although direct switching to `scriptmanager` wasn’t possible, we leveraged `sudo -u scriptmanager` to inject a Python reverse shell into a writable script file (`/scripts/test.py`). By triggering this file, we received a reverse shell connection back to our local Mac, this time as `scriptmanager`. From there, a simple privilege escalation was achieved by running `/bin/bash` as root using `sudo`, completing the compromise and granting access to both the user and root flags. This box serves as a lesson in the dangers of exposed dev tools, overly permissive `sudo` rules, and unmonitored script execution paths.
+
+

