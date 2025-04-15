@@ -27,6 +27,7 @@ https://github.com/daviddias/node-dirbuster/blob/master/lists/directory-list-2.3
 feroxbuster -u http://bank.htb/ -w ./PathBANGER.txt -n
 ```
 
+![[Pasted image 20250415030638.png]]
 
 now we are hear
 http://bank.htb/balance-transfer/
