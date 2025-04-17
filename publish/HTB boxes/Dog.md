@@ -183,6 +183,7 @@ package = Custom
 version = 1.0
 ```
 
+cd files/config_83dddd18e1ec67fd8ff5bba2453c7fb3/active/
 #### `shell.php`:
 
 Insert a PHP reverse shell payload (e.g., from [PentestMonkey](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php)).
