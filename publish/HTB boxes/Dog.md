@@ -128,6 +128,17 @@ gitdumper.sh http://dog.htb/.git/ dog-git
 cd dog-git
 ```
 
+```
+grep -R "@dog.htb" *                                           
+Desktop/shared vault/kali-vault/publish/HTB boxes/Dog.md:root <dog@dog.htb>
+Desktop/shared vault/kali-vault/publish/HTB boxes/Dog.md:tiffany <tiffany@dog.htb>
+GitTools/Extractor/git-ext/0-8204779c764abd4c9d8d95038b6d22b6a7515afa/commit-meta.txt:author root <dog@dog.htb> 1738963331 +0000
+GitTools/Extractor/git-ext/0-8204779c764abd4c9d8d95038b6d22b6a7515afa/commit-meta.txt:committer root <dog@dog.htb> 1738963331 +0000
+GitTools/Dumper/git-dump/.git/logs/HEAD:0000000000000000000000000000000000000000 8204779c764abd4c9d8d95038b6d22b6a7515afa root <dog@dog.htb> 1738963331 +0000     commit (initial): todo: customize url aliases. reference:https://docs.backdropcms.org/documentation/url-aliases
+GitTools/Dumper/git-dump/.git/logs/refs/heads/master:0000000000000000000000000000000000000000 8204779c764abd4c9d8d95038b6d22b6a7515afa root <dog@dog.htb> 1738963331 +0000        commit (initial): todo: customize url aliases. reference:https://docs.backdropcms.org/documentation/url-aliases
+
+```
+
 ## Extract Credentials
 
 Search for database credentials:
