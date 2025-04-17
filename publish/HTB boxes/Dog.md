@@ -123,11 +123,15 @@ Let's say we discover:
 ## Dump Git Repo
 
 Dump the `.git` directory using `gitdumper.sh`:
+note: you need to let this run for a while 
 ```
 gitdumper.sh http://dog.htb/.git/ dog-git
 cd dog-git
 ```
 
+then use the extractor
+
+then find user
 ```
 grep -R "@dog.htb" *                                           
 Desktop/shared vault/kali-vault/publish/HTB boxes/Dog.md:root <dog@dog.htb>
@@ -139,7 +143,6 @@ GitTools/Dumper/git-dump/.git/logs/refs/heads/master:000000000000000000000000000
 
 ```
 
-## Extract Credentials
 
 Search for database credentials:
 ```
@@ -183,7 +186,6 @@ package = Custom
 version = 1.0
 ```
 
-cd files/config_83dddd18e1ec67fd8ff5bba2453c7fb3/active/
 #### `shell.php`:
 
 Insert a PHP reverse shell payload (e.g., from [PentestMonkey](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php)).
