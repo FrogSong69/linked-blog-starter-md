@@ -110,6 +110,7 @@ No `root.txt`, but let's dig into the raw device.
 strings /dev/sdb -n 10
 ```
 
+ Now lets get that flag!
 ```
 /media/usbstick
 lost+found
