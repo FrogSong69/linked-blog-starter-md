@@ -394,7 +394,7 @@ This file stores user account information — and if writable, allows us to add 
 
 Before continuing, we upgraded our shell for better TTY support (needed for `su` to work properly):
 ```
-`python3 -c 'import pty; pty.spawn("/bin/bash")'`
+python3 -c 'import pty; pty.spawn("/bin/bash")'
 ```
 
 

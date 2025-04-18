@@ -37,3 +37,12 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 370.73 seconds
 
 ```
+
+
+ircd@irked:~/Unreal3.2$ cat /home/djmardov/Documents/.backup
+cat /home/djmardov/Documents/.backup
+Super elite steg backup pw
+UPupDOWNdownLRlrBAbaSSss
+ircd@irked:~/Unreal3.2$ su djmardov
+su djmardov
+Password: UPupDOWNdownLRlrBAbaSSss
