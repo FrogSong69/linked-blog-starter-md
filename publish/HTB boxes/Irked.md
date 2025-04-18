@@ -46,3 +46,14 @@ UPupDOWNdownLRlrBAbaSSss
 ircd@irked:~/Unreal3.2$ su djmardov
 su djmardov
 Password: UPupDOWNdownLRlrBAbaSSss
+
+
+```
+└─$ steghide extract -sf irked.jpg
+Enter passphrase: 
+wrote extracted data to "pass.txt".
+                                                                                                                                                                                 
+┌──(parallels㉿kali-linux-2024-2)-[~]
+└─$ cat pass.txt                          
+Kab6h+m+bbp2J:HG
+```
