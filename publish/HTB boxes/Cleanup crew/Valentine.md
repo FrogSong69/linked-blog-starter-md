@@ -229,3 +229,6 @@ cat root.txt
 | 6 | Decrypted private key and SSH’d into the machine as user `hype` |
 
 Next step would be local enumeration and privilege escalation to root.
+
+
+rsync -aP 192.168.1.18:/Users/<your_user>/path/to/file .

@@ -34,7 +34,7 @@ Q3VybGluZzIwMTgh
 
 ```
 echo Q3VybGluZzIwMTgh | base64 -d 
-Curling2018!   
+Curling2018!
 ```
 
 Now we have what looks like a password 
@@ -42,3 +42,5 @@ Now we have what looks like a password
 ```
 https://github.com/dietcokesec/joom3y.git
 ```
+
+python3 -c 'import pty; pty.spawn("/bin/bash")'
