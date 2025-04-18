@@ -216,11 +216,7 @@ ls
 cat root.txt
 # 59485c3f0d079b8911b150465e749403
 ```
-
-
-
 ---
-
 ## Summary
 
 | Step | Action |
