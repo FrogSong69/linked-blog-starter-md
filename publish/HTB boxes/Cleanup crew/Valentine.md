@@ -219,14 +219,14 @@ cat root.txt
 ---
 ## Summary
 
-| Step | Action |
-|------|--------|
-| 1 | Scanned with Nmap and discovered outdated Apache & OpenSSH |
-| 2 | Enumerated web dirs with Feroxbuster and found notes, key, encode/decode pages |
-| 3 | Found `/dev/hype_key` containing hex-encoded encrypted private key |
-| 4 | Exploited Heartbleed to leak memory from HTTPS |
-| 5 | Retrieved RSA key passphrase: `heartbleedbelievethehype` |
-| 6 | Decrypted private key and SSH’d into the machine as user `hype` |
+| Step | Action                                                                         |
+| ---- | ------------------------------------------------------------------------------ |
+| 1    | Scanned with Nmap and discovered outdated Apache & OpenSSH                     |
+| 2    | Enumerated web dirs with Feroxbuster and found notes, key, encode/decode pages |
+| 3    | Found `/dev/hype_key` containing hex-encoded encrypted private key             |
+| 4    | Exploited Heartbleed to leak memory from HTTPS                                 |
+| 5    | Retrieved RSA key passphrase: `heartbleedbelievethehype`                       |
+| 6    | Decrypted private key and SSH’d into the machine as user `hype`                |
 
 Next step would be local enumeration and privilege escalation to root.
 
