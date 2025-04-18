@@ -120,3 +120,19 @@ pass.txt  root.txt
 cat root.txt
 feff7c74c72c03a02efec10c2bab2b52
 ```
+
+
+## What’s the Privilege Escalation?
+
+Once you get access as the user `djmardov`, you notice there’s a strange binary on the system called `viewuser`. It’s not something you'd normally find on a Linux box, which makes it suspicious right away.
+The key thing about this binary is that it has the SetUID permission set which means whenever it is executed, it runs as root, regardless of which user launches it. That alone isn’t necessarily dangerous — many legitimate system programs use SetUID but when a custom binary does this, it often opens the door to privilege escalation.
+When you run the binary, it prints a vague message about being in development and then shows an error: it tries to run a file called `/tmp/listusers`, but that file doesn’t exist.
+This is the actual vulnerability.
+
+The binary is written in a way that it tries to execute the `/tmp/listusers` script without checking its contents or permissions and since the binary is running as root, anything it executes also runs as root.
+If the binary were coded securely, it would never blindly run something from a writable location like `/tmp`. But in this case, it does and it gives any user on the system the opportunity to place a malicious file at `/tmp/listusers`.
+This is a classic example of insecure use of external scripts in a privileged context.
+
+Because `/tmp` is writable by any user, you as `djmardov` can simply create a file named `/tmp/listusers` and make it executable. Inside that file, you place a command that spawns a root shell. Then you run the vulnerable binary.
+Since the binary is SetUID and runs as root and it's designed to run `/tmp/listusers` — your malicious script gets executed with full root privileges.
+This instantly gives you a root shell, and you can now access `root.txt` or do anything else on the box.
