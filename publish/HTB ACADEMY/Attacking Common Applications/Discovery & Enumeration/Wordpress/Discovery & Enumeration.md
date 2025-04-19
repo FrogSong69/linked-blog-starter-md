@@ -33,6 +33,9 @@ curl -s http://blog.inlanefreight.local | grep WordPress
 
 
 
+We can use the [waybackurls](https://github.com/tomnomnom/waybackurls) tool to look for older versions of a target site using the Wayback Machine. Sometimes we may find a previous version of a WordPress site using a plugin that has a known vulnerability. If the plugin is no longer in use but the developers did not remove it properly, we may still be able to access the directory it is stored in and exploit a flaw.
+
+
 ### Types of users 
  There are five types of users on a standard WordPress installation.
 
