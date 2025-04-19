@@ -6,7 +6,7 @@ nmap -p- <IP>
 ```
 
 ```
-nmap -p- <IP> -oA web_discovery -iL scope_list
+nmap <IP> -p- -oA web_discovery
 ```
 
 **`-oA <basename>`**  
@@ -20,8 +20,6 @@ web_discovery.nmap
 web_discovery.xml
 web_discovery.gnmap
 ```
-**`-iL <filename>`**  
-Rather than listing targets on the command line, `-iL` points Nmap at a file containing your list of targets (one hostname or IP per line). This is great for large or variable target lists. Here, `-iL scope_list` tells Nmap to read its scan targets from the file `scope_list`.
 
 If we are dealing with a large environment that have a enormous amount of hosts with services running on open ports we can use tool like  [EyeWitness](https://github.com/FortyNorthSecurity/EyeWitness) and [Aquatone](https://github.com/michenriksen/aquatone). Both of these tools can be fed raw Nmap XML scan output (Aquatone can also take Masscan XML; EyeWitness can take Nessus XML output) and be used to quickly inspect all hosts running web applications and take screenshots of each. The screenshots are then assembled into a report that we can work through in the web browser to assess the web attack surface.
 
@@ -33,3 +31,5 @@ Enumerating one of the hosts further using an Nmap service scan (`-sV`) against 
 ```shell-session
 sudo nmap -sV <IP>
 ```
+
+
