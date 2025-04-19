@@ -28,8 +28,14 @@ TODO: try these out and give examples on how to use them
 
 Enumerating one of the hosts further using an Nmap service scan (`-sV`) against the default top 1,000 ports can tell us more about what is running on the webserver.
 
+Example:
 ```shell-session
-sudo nmap -sV <IP>
+nmap <IP> -p- -oA web_discovery
+```
+This will give us the files mentioned above then we can generate the report:
+```
+eyewitness --web -x web_discovery.xml -d inlanefreight_eyewitness 
 ```
 
-![Screenshot 2025-04-19 at 02.17.36.png](app://e24ced4d860644e6953ca85234dc960f35f1/Users/0xkato/Desktop/kali%20vault/Screenshot%202025-04-19%20at%2002.17.36.png?1745022418651)
+
+![[Screenshot 2025-04-19 at 02.17.36.png]]
