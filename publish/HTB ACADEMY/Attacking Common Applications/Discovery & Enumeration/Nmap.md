@@ -32,4 +32,4 @@ Enumerating one of the hosts further using an Nmap service scan (`-sV`) against 
 sudo nmap -sV <IP>
 ```
 
-
+![Screenshot 2025-04-19 at 02.17.36.png](app://e24ced4d860644e6953ca85234dc960f35f1/Users/0xkato/Desktop/kali%20vault/Screenshot%202025-04-19%20at%2002.17.36.png?1745022418651)
